@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoDaddy Hosting Test</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f4f8;
+      padding: 40px 20px;
+      color: #172033;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+    }
+
+    button {
+      padding: 12px 18px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      background: #174ea6;
+      color: white;
+      cursor: pointer;
+    }
+
+    pre {
+      background: #101828;
+      color: #d9e5f5;
+      padding: 20px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>GoDaddy Node.js + MySQL Test</h1>
+
+    <p>Check whether your hosting supports Node.js and MySQL.</p>
+
+    <button onclick="test('/health')">
+      Test Node.js
+    </button>
+
+    <button onclick="test('/db-test')">
+      Test MySQL
+    </button>
+
+    <button onclick="test('/api/sample')">
+      Test API
+    </button>
+
+    <pre id="output">Click a button to start testing...</pre>
+
+  </div>
+
+  <script>
+    async function test(url) {
+      const output = document.getElementById("output");
+
+      output.textContent = "Testing...";
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        output.textContent =
+          "HTTP Status: " + response.status +
+          "\n\n" +
+          JSON.stringify(data, null, 2);
+
+      } catch (error) {
+        output.textContent = error.message;
+      }
+    }
+  </script>
+
+</body>
+</html>
